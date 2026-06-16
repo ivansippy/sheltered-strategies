@@ -25,6 +25,7 @@ interface PriceRow {
   name: string;
   note: string;
   amount: string;
+  time?: string;
 }
 interface PriceGroup {
   label: string;
@@ -75,14 +76,6 @@ const TREATS: Treat[] = [
     note: "Helping individuals who struggle with producing specific speech sounds (such as a frontal/lateral lisp or difficulties with the /r/ sound).",
   },
   {
-    label: "Childhood Apraxia of Speech (CAS)",
-    note: "A motor speech disorder where the brain struggles to plan and coordinate the movements necessary for speech.",
-  },
-  {
-    label: "Fluency",
-    note: "Addressing stuttering or other disruptions in the natural flow of speech.",
-  },
-  {
     label: "Receptive Language Delays/Disorders",
     note: "Helping individuals understand the language and information they receive.",
   },
@@ -91,16 +84,20 @@ const TREATS: Treat[] = [
     note: "Assisting individuals with sharing their thoughts, ideas, and words effectively with others.",
   },
   {
-    label: "Developmental & Genetic Disorders",
-    note: "Support for individuals with Down Syndrome, Autism, and Cerebral Palsy.",
+    label: "Fluency",
+    note: "Addressing stuttering or other disruptions in the natural flow of speech.",
   },
   {
-    label: "Executive Functioning Deficits",
-    note: "Helping with cognitive skills like working memory, flexible thinking, and self-control.",
+    label: "Childhood Apraxia of Speech (CAS)",
+    note: "A motor speech disorder where the brain struggles to plan and coordinate the movements necessary for speech.",
   },
   {
-    label: "Cognitive Impairments",
-    note: "General support for cognitive-communication needs.",
+    label: "Executive Functioning & Cognitive Skills",
+    note: "Support for cognitive-communication needs including working memory, flexible thinking, and self-regulation.",
+  },
+  {
+    label: "Pragmatics / Social Language",
+    note: "Skills like sharing, turn-taking, expressing wants and needs safely, and understanding social rules of communication.",
   },
   {
     label: "Augmentative and Alternative Communication (AAC)",
@@ -113,9 +110,9 @@ const SERVICES: Service[] = [
     tab: "Free Screenings",
     title: "Free Screenings",
     body: "Not sure if a full evaluation is warranted? A no-cost screening is a brief, low-pressure opportunity to identify potential areas of concern in speech sound production, language, or fluency. I'll share my clinical impressions and clear recommendations for next steps — whether that's a formal evaluation or reassurance that development is on track.",
-    photoLabel: "Screening session",
+    photoLabel: "water bottle · sunscreen · chapstick · trail mix",
     variant: "green",
-    src: "/assets/BFF84889-BAF9-4BAB-A907-F4F77B867143.webp",
+    src: "/assets/backpack.jpg",
     pills: ["No cost", "No referral needed"],
     detail:
       "Screenings take approximately 20–30 minutes and include informal observation and brief standardized tasks. Families leave with clear, actionable guidance — no commitment required.",
@@ -124,9 +121,9 @@ const SERVICES: Service[] = [
     tab: "Evaluations",
     title: "Speech & Language Evaluations",
     body: "A thorough, individualized evaluation is the foundation of an effective therapy plan. Evaluations may focus on speech sound production, receptive and expressive language, fluency, or a comprehensive assessment covering structure, function, voice, and fluency. Using a combination of standardized testing and informal clinical observation, I build a complete picture of each client's strengths and areas of need. A formal written report — including test results, clinical observations, background history, and individualized recommendations — is provided with every evaluation.",
-    photoLabel: "Evaluation session",
+    photoLabel: "trail map",
     variant: "sand",
-    src: "/assets/F0C55B20-310D-4E48-B60A-5150DC92051B_1_201_a.webp",
+    src: "/assets/trailmap.webp",
     pills: [
       "Written report included",
       "Formal + informal measures",
@@ -137,10 +134,10 @@ const SERVICES: Service[] = [
   {
     tab: "Speech Sound Therapy",
     title: "Speech Sound Therapy",
-    body: "For children and adults who struggle to produce certain sounds clearly and consistently. Therapy builds from a strong phonetic foundation — targeting sounds in isolation and advancing to words, phrases, sentences, and natural conversation. Evidence-based approaches are selected based on the specific nature of each client's disorder: articulation-based, phonological, or motor-speech (including Childhood Apraxia of Speech). Sessions are engaging, goal-directed, and designed to support real-world communication.",
-    photoLabel: "Speech sound therapy",
+    body: "For those who struggle to produce certain sounds clearly and consistently. Therapy builds from a strong phonetic foundation — targeting sounds in isolation and advancing to words, phrases, sentences, and natural conversation. Evidence-based approaches are selected based on the specific nature of each client's disorder: articulation-based, phonological, or motor-speech (including Childhood Apraxia of Speech). Sessions are engaging, goal-directed, and designed to support real-world communication.",
+    photoLabel: "wildflowers along the way",
     variant: "green",
-    src: "/assets/C9D5734D-A079-4C59-A3E6-573CB9B720D8.webp",
+    src: "/assets/wildflowers.jpg",
     pills: [
       "Articulation",
       "Phonological disorders",
@@ -151,14 +148,14 @@ const SERVICES: Service[] = [
   {
     tab: "Language Therapy",
     title: "Language Therapy",
-    body: "Language is broad, nuanced, and deeply individual. Therapy may address receptive language (understanding what is said, following directions, answering questions), expressive language (vocabulary, sentence structure, narrative skills), or the underlying grammatical and morphological rules that organize language. When a child struggles with verb tenses, plural forms, pronouns, or building complete sentences, a carefully individualized program develops lasting skills in a natural, supportive environment.",
-    photoLabel: "Language therapy",
+    body: "Language is broad, nuanced, and deeply individual. Receptive language is the language you know in your head but don't always share — understanding others and following directions. Expressive language is the language you use to communicate with others. There are three components of language — form, content, and use. Within that framework, therapy may address syntax, morphology, phonology, semantics, and pragmatics.",
+    photoLabel: "lake at trail's end",
     variant: "sand",
-    src: "/assets/Sunrise+in+the+valley.webp",
+    src: "/assets/lake +at+end.jpg",
     pills: [
       "Receptive language",
       "Expressive language",
-      "Grammar & morphology",
+      "Syntax · morphology · semantics",
     ],
     detail: undefined,
   },
@@ -169,9 +166,10 @@ const PRICE_GROUPS: PriceGroup[] = [
     label: "Screenings",
     rows: [
       {
-        name: "Free Screening",
-        note: "Informal · 20–30 minutes · no referral needed",
+        name: "Speech and Language Screening",
+        note: "Informal · no referral needed",
         amount: "Free",
+        time: "20–30 min",
       },
     ],
   },
@@ -180,23 +178,27 @@ const PRICE_GROUPS: PriceGroup[] = [
     rows: [
       {
         name: "Comprehensive Evaluation",
-        note: "Speech, language, fluency & voice · 60–90 min",
+        note: "Speech, language, fluency & voice",
         amount: "$250",
+        time: "60–90 min",
       },
       {
         name: "Speech Sound Evaluation",
-        note: "Articulation & phonology · 60 min",
+        note: "Articulation & phonology",
         amount: "$150",
+        time: "60 min",
       },
       {
         name: "Language Evaluation",
-        note: "Receptive & expressive language · 60–75 min",
+        note: "Receptive & expressive language",
         amount: "$200",
+        time: "60–75 min",
       },
       {
         name: "Fluency Evaluation",
-        note: "Stuttering & cluttering · 60 min",
-        amount: "$200",
+        note: "Stuttering & cluttering",
+        amount: "$150",
+        time: "60 min",
       },
     ],
   },
@@ -205,13 +207,15 @@ const PRICE_GROUPS: PriceGroup[] = [
     rows: [
       {
         name: "Individual Therapy Session",
-        note: "45 minutes · speech or language",
+        note: "Speech or language",
         amount: "$125",
+        time: "45 min",
       },
       {
         name: "Free Consultation",
-        note: "Is this the right fit? · 15 min · no obligation",
+        note: "Is this the right fit? · no obligation",
         amount: "Free",
+        time: "15 min",
       },
     ],
   },
@@ -255,7 +259,10 @@ const FAQS: Faq[] = [
       <>
         A superbill is an itemized receipt you can submit to your insurance
         provider to request possible out-of-network reimbursement. I provide
-        superbills on request — <a href="#contact">just ask</a>.
+        superbills on request — <a href="#contact">just ask</a>, or{" "}
+        <a href="/assets/superbill-example.pdf" target="_blank" rel="noopener noreferrer">
+          see an example
+        </a>.
       </>
     ),
   },
@@ -342,6 +349,32 @@ const LogoMark = () => (
     />
   </svg>
 );
+
+const LANG_RULES: { term: string; def: string }[] = [
+  { term: "Syntax", def: "The rules that govern word order to form clauses, phrases, and sentences." },
+  { term: "Morphology", def: "The rules that govern change in meaning at the word level." },
+  { term: "Phonology", def: "The rules that govern the structure, distribution, and sequencing of speech-sound patterns." },
+  { term: "Semantics", def: "The rules that govern the meaning and context of words or grammatical units." },
+  { term: "Pragmatics", def: "The rules that govern language use across communication contexts." },
+];
+
+function LangRules() {
+  const [open, setOpen] = useState<number | null>(null);
+  return (
+    <div className="lang-rules">
+      {LANG_RULES.map((r, i) => (
+        <button
+          key={r.term}
+          className={`lang-rule${open === i ? " open" : ""}`}
+          onClick={() => setOpen(open === i ? null : i)}
+        >
+          <span className="lang-rule__term">{r.term}</span>
+          {open === i && <span className="lang-rule__def">{r.def}</span>}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 /* ---------------- Reusable photo placeholder ---------------- */
 function Photo({
@@ -440,7 +473,7 @@ export default function ShelteredStrategiesHome() {
                 <a className="btn" href="#contact">
                   Book a free consultation
                 </a>
-                <a className="btn btn--ghost" href="#services">
+                <a className="btn btn--taupe" href="#services">
                   Explore services
                 </a>
               </div>
@@ -459,13 +492,9 @@ export default function ShelteredStrategiesHome() {
             <div className="hero__media">
               <Photo
                 variant="green"
-                label="Hero image"
-                src="/assets/unsplash-image-W2uZKKdLFr0.webp"
+                label="Lions Den"
+                src="/assets/lionsden.jpg"
               />
-              <div className="hero__badge">
-                <div className="n">Free</div>
-                <div className="t">Short consultation to start at no cost.</div>
-              </div>
             </div>
           </div>
         </section>
@@ -569,7 +598,7 @@ export default function ShelteredStrategiesHome() {
                     className={`svc__tab${i === activeSvc ? " active" : ""}`}
                     onClick={() => setActiveSvc(i)}
                   >
-                    <span className="dash" />
+                    <span className="plus">+</span>
                     {s.tab}
                   </button>
                 ))}
@@ -591,6 +620,7 @@ export default function ShelteredStrategiesHome() {
                     ))}
                   </div>
                   {svc.detail && <p className="svc__detail">{svc.detail}</p>}
+                  {activeSvc === 3 && <LangRules />}
                 </div>
               </div>
             </div>
@@ -604,7 +634,7 @@ export default function ShelteredStrategiesHome() {
               <p className="eyebrow">Simple &amp; transparent</p>
               <h2>Pricing menu</h2>
               <p>
-                No surprises. Every service is clearly priced, with the time you
+                Every service is clearly priced, with the time you
                 can expect to spend together.
               </p>
             </div>
@@ -618,7 +648,10 @@ export default function ShelteredStrategiesHome() {
                         <b>{r.name}</b>
                       </div>
                       <span className="dotfill" />
-                      <span className="amt">{r.amount}</span>
+                      <span className="amt">
+                        {r.amount}
+                        {r.time && <small>{r.time}</small>}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -636,8 +669,7 @@ export default function ShelteredStrategiesHome() {
             <div className="screen">
               <p>
                 <b>Free screenings available.</b> A quick, no-cost check to see
-                if a full evaluation is the right next step — no referral
-                needed.
+                if a full evaluation is the right next step.
               </p>
               <a className="btn btn--ghost" href="#contact">
                 Request a screening
@@ -710,17 +742,45 @@ export default function ShelteredStrategiesHome() {
                 A licensed, ASHA-certified Speech-Language Pathologist serving
                 the Durango community with individualized, evidence-based care.
                 Sheltered Strategies was built on a simple belief: every person
-                deserves a calm, structured space to grow their communication —
+                deserves a structured space to grow their communication —
                 guided by clear goals and a thoughtful plan.
               </p>
               <p style={{ marginTop: "1em" }}>
                 Avery holds a Master of Science in Communication Sciences and
-                Disorders from Appalachian State University, with undergraduate
-                and post-baccalaureate study at Fort Lewis College and the
-                University of Colorado, Boulder. She has worked across Early
-                Intervention, public school, home health, hospital, and skilled
-                nursing settings, bringing broad clinical experience to every
-                evaluation and therapy program.
+                Disorders from Appalachian State University. She earned her
+                undergraduate degree from Fort Lewis College and her
+                post-baccalaureate from the University of Colorado, Boulder.
+                She has worked across Early Intervention, public school, home
+                health, hospital, and skilled nursing settings, bringing broad
+                clinical experience to every evaluation and therapy program.
+              </p>
+              <p style={{ marginTop: "1em" }}>
+                She began her speech career as a Speech-Language Pathology
+                Assistant with San Juan BOCES before heading to graduate school.
+                After graduate school, she worked on the Front Range at a Title
+                I school where the majority of clients were English Language
+                Learners. The duality of Spanish and English scaffolding
+                instruction is where the name Sheltered Strategies was born.
+                Sheltered Instruction Strategies are strategies that adapt
+                speech, teach vocabulary through context, and use background
+                knowledge to aid in the understanding of new material. That,
+                infused with her last name Sheldon — or "protected hill" — serves
+                as the inspiration to give clients an opportunity to learn
+                communication strategies in a sheltered, protected environment.
+              </p>
+              <p style={{ marginTop: "1em" }}>
+                In addition to holding her Certificate of Clinical Competence
+                (CCC) from ASHA, Avery is licensed through Colorado Department
+                of Education (CDE) and Department of Regulatory Agencies (DORA).
+                She is trained in teletherapy and is cross-licensed in the State
+                of California through the Department of Consumer Affairs (DCA)
+                Speech-Language Pathology &amp; Audiology &amp; Hearing Aide
+                Dispensers Board.
+              </p>
+              <p style={{ marginTop: "1em" }}>
+                When not with clients, she enjoys spending time with her husband
+                and their four-year-old twins, practicing yoga, running, and
+                riding bikes.
               </p>
               <div className="about__lic">
                 <div className="lic">
