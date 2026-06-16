@@ -260,7 +260,7 @@ const FAQS: Faq[] = [
         A superbill is an itemized receipt you can submit to your insurance
         provider to request possible out-of-network reimbursement. I provide
         superbills on request — <a href="#contact">just ask</a>, or{" "}
-        <a href="/assets/superbill-example.pdf" target="_blank" rel="noopener noreferrer">
+        <a href="/assets/Superbill Example.pdf" target="_blank" rel="noopener noreferrer">
           see an example
         </a>.
       </>
@@ -493,7 +493,7 @@ export default function ShelteredStrategiesHome() {
               <Photo
                 variant="green"
                 label="Lions Den"
-                src="/assets/lionsden.jpg"
+                src="/assets/Lions Den.jpg"
               />
             </div>
           </div>
