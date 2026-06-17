@@ -63,11 +63,10 @@ const NAV: NavItem[] = [
   { label: "About", href: "#about" },
 ];
 
-const CREDS: { badge: string; label: string }[] = [
-  { badge: "CCC-SLP", label: "ASHA Certified" },
+const CREDS: { badge?: string; imgSrc?: string; label: string }[] = [
+  { imgSrc: "/assets/asha-ccc.png", badge: `#${CONTACT.asha}`, label: "ASHA Certified · CCC-SLP" },
   { badge: "CO Lic.", label: "Colorado Licensed" },
-  { badge: "CA", label: "Teletherapy · California" },
-  { badge: `#${CONTACT.asha}`, label: "ASHA Provider" },
+  { badge: "CA Lic.", label: "California Licensed" },
 ];
 
 const TREATS: Treat[] = [
@@ -397,6 +396,7 @@ function Photo({
 /* ---------------- Page ---------------- */
 export default function ShelteredStrategiesHome() {
   const [activeSvc, setActiveSvc] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
   const svc = SERVICES[activeSvc];
 
   return (
@@ -445,7 +445,7 @@ export default function ShelteredStrategiesHome() {
             <a className="btn" href="#contact">
               Schedule a consult
             </a>
-            <button className="menu-btn" aria-label="Menu">
+            <button className="menu-btn" aria-label="Menu" onClick={() => setMenuOpen(true)}>
               <span />
               <span />
               <span />
@@ -453,6 +453,19 @@ export default function ShelteredStrategiesHome() {
           </div>
         </div>
       </header>
+
+      {menuOpen && (
+        <div className="mobile-menu">
+          <div className="mobile-menu__overlay" onClick={() => setMenuOpen(false)} />
+          <div className="mobile-menu__drawer">
+            <button className="mobile-menu__close" aria-label="Close menu" onClick={() => setMenuOpen(false)}>✕</button>
+            {NAV.map((n) => (
+              <a key={n.label} href={n.href} onClick={() => setMenuOpen(false)}>{n.label}</a>
+            ))}
+            <a className="btn" href="#contact" onClick={() => setMenuOpen(false)}>Schedule a consult</a>
+          </div>
+        </div>
+      )}
 
       <main>
         {/* hero */}
@@ -485,7 +498,7 @@ export default function ShelteredStrategiesHome() {
                   <b>Birth–15</b> · primarily
                 </span>
                 <span>
-                  <b>In-person</b> &amp; teletherapy
+                  <b>In-person</b>
                 </span>
               </div>
             </div>
@@ -504,7 +517,10 @@ export default function ShelteredStrategiesHome() {
           <div className="wrap">
             {CREDS.map((c) => (
               <span className="cred" key={c.label}>
-                <span className="badge">{c.badge}</span>
+                {c.imgSrc
+                  ? <img src="/assets/ashacert.avif" alt="ASHA CCC-SLP" className="asha-badge" />
+                  : <span className="badge">{c.badge}</span>
+                }
                 {c.label}
               </span>
             ))}
@@ -734,6 +750,29 @@ export default function ShelteredStrategiesHome() {
                 label="Hero image"
                 src="/assets/ss+photo+2.webp"
               />
+              <div className="about__lic">
+                <div className="lic">
+                  <span className="lic__badge">CCC-SLP</span>
+                  <div>
+                    <b>Certificate of Clinical Competence</b>
+                    <small>American Speech-Language-Hearing Association (ASHA)</small>
+                  </div>
+                </div>
+                <div className="lic">
+                  <span className="lic__badge">CO</span>
+                  <div>
+                    <b>Colorado Licensed SLP</b>
+                    <small>State of Colorado</small>
+                  </div>
+                </div>
+                <div className="lic">
+                  <span className="lic__badge">CA</span>
+                  <div>
+                    <b>CA Licensed SLP</b>
+                    <small>California Department of Consumer Affairs</small>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="about">
               <p className="eyebrow">About</p>
@@ -782,31 +821,6 @@ export default function ShelteredStrategiesHome() {
                 and their four-year-old twins, practicing yoga, running, and
                 riding bikes.
               </p>
-              <div className="about__lic">
-                <div className="lic">
-                  <span className="lic__badge">CCC-SLP</span>
-                  <div>
-                    <b>Certificate of Clinical Competence</b>
-                    <small>
-                      American Speech-Language-Hearing Association (ASHA)
-                    </small>
-                  </div>
-                </div>
-                <div className="lic">
-                  <span className="lic__badge">CO</span>
-                  <div>
-                    <b>Colorado Licensed SLP</b>
-                    <small>State of Colorado</small>
-                  </div>
-                </div>
-                <div className="lic">
-                  <span className="lic__badge">CA</span>
-                  <div>
-                    <b>California Teletherapy</b>
-                    <small>Licensed for remote services in California</small>
-                  </div>
-                </div>
-              </div>
               <div className="about__sig">
                 <div>
                   <b>CCC-SLP</b>
@@ -830,7 +844,7 @@ export default function ShelteredStrategiesHome() {
       <section className="cta" id="contact">
         <div className="wrap">
           <div>
-            <p className="eyebrow" style={{ color: "#9abf8e" }}>
+            <p className="eyebrow" style={{ color: "#f0c4b0" }}>
               Let's begin
             </p>
             <h2>Ready to take the first step?</h2>
