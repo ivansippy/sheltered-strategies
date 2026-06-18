@@ -50,7 +50,7 @@ const CONTACT = {
   address1: "777 Main Ave, Ste. 213A",
   address2: "Durango, CO 81301",
   phone: "(303) 323-5773",
-  email: "averyrperryman@gmail.com",
+  email: "speechtherapy@shelteredstrategies.com",
   asha: "14229302",
   region: "CO & CA",
 };
@@ -111,7 +111,7 @@ const SERVICES: Service[] = [
     body: "Not sure if a full evaluation is warranted? A no-cost screening is a brief, low-pressure opportunity to identify potential areas of concern in speech sound production, language, or fluency. I'll share my clinical impressions and clear recommendations for next steps — whether that's a formal evaluation or reassurance that development is on track.",
     photoLabel: "water bottle · sunscreen · chapstick · trail mix",
     variant: "green",
-    src: "/assets/backpack.jpg",
+    src: "/assets/backpack.png",
     pills: ["No cost", "No referral needed"],
     detail:
       "Screenings take approximately 20–30 minutes and include informal observation and brief standardized tasks. Families leave with clear, actionable guidance — no commitment required.",
@@ -122,7 +122,7 @@ const SERVICES: Service[] = [
     body: "A thorough, individualized evaluation is the foundation of an effective therapy plan. Evaluations may focus on speech sound production, receptive and expressive language, fluency, or a comprehensive assessment covering structure, function, voice, and fluency. Using a combination of standardized testing and informal clinical observation, I build a complete picture of each client's strengths and areas of need. A formal written report — including test results, clinical observations, background history, and individualized recommendations — is provided with every evaluation.",
     photoLabel: "trail map",
     variant: "sand",
-    src: "/assets/trailmap.webp",
+    src: "/assets/trailmap.png",
     pills: [
       "Written report included",
       "Formal + informal measures",
@@ -154,7 +154,7 @@ const SERVICES: Service[] = [
     pills: [
       "Receptive language",
       "Expressive language",
-      "Syntax · morphology · semantics",
+      "Form · content · use",
     ],
     detail: undefined,
   },
@@ -350,17 +350,25 @@ const LogoMark = () => (
 );
 
 const LANG_RULES: { term: string; def: string }[] = [
-  { term: "Syntax", def: "The rules that govern word order to form clauses, phrases, and sentences." },
-  { term: "Morphology", def: "The rules that govern change in meaning at the word level." },
-  { term: "Phonology", def: "The rules that govern the structure, distribution, and sequencing of speech-sound patterns." },
-  { term: "Semantics", def: "The rules that govern the meaning and context of words or grammatical units." },
-  { term: "Pragmatics", def: "The rules that govern language use across communication contexts." },
+  {
+    term: "Form",
+    def: "The rules that govern the structure of language — including syntax (word order and sentence structure), morphology (word-level meaning changes), and phonology (sound patterns and sequencing).",
+  },
+  {
+    term: "Content",
+    def: "The rules that govern meaning in language — primarily semantics, which addresses the meaning and context of words and grammatical units.",
+  },
+  {
+    term: "Use",
+    def: "The rules that govern language use across social communication contexts — including pragmatics, which addresses how language functions in real-world interactions.",
+  },
 ];
 
 function LangRules() {
   const [open, setOpen] = useState<number | null>(null);
   return (
     <div className="lang-rules">
+      <p className="lang-rules__intro">The rules that govern language use across social communication context</p>
       {LANG_RULES.map((r, i) => (
         <button
           key={r.term}
@@ -393,6 +401,21 @@ function Photo({
   );
 }
 
+function SvcPanelContent({ s, isLang }: { s: Service; isLang: boolean }) {
+  return (
+    <>
+      <Photo variant={s.variant} label={s.photoLabel} src={s.src} />
+      <h3>{s.title}</h3>
+      <p>{s.body}</p>
+      <div className="svc__meta">
+        {s.pills.map((p) => <span className="pill" key={p}>{p}</span>)}
+      </div>
+      {s.detail && <p className="svc__detail">{s.detail}</p>}
+      {isLang && <LangRules />}
+    </>
+  );
+}
+
 /* ---------------- Page ---------------- */
 export default function ShelteredStrategiesHome() {
   const [activeSvc, setActiveSvc] = useState(0);
@@ -417,7 +440,7 @@ export default function ShelteredStrategiesHome() {
               {CONTACT.phone}
             </a>
           </div>
-          <div className="u-right">ASHA #{CONTACT.asha}</div>
+          <div className="u-right">CO &amp; CA · Speech-Language Pathology</div>
         </div>
       </div>
 
@@ -604,7 +627,8 @@ export default function ShelteredStrategiesHome() {
               <p className="eyebrow">What I offer</p>
               <h2>Services</h2>
             </div>
-            <div className="svc">
+            {/* desktop: tab + panel */}
+            <div className="svc svc--desktop">
               <div className="svc__list" role="tablist">
                 {SERVICES.map((s, i) => (
                   <button
@@ -621,24 +645,24 @@ export default function ShelteredStrategiesHome() {
               </div>
               <div className="svc__panels">
                 <div className="svc__panel" key={activeSvc}>
-                  <Photo
-                    variant={svc.variant}
-                    label={svc.photoLabel}
-                    src={svc.src}
-                  />
-                  <h3>{svc.title}</h3>
-                  <p>{svc.body}</p>
-                  <div className="svc__meta">
-                    {svc.pills.map((p) => (
-                      <span className="pill" key={p}>
-                        {p}
-                      </span>
-                    ))}
-                  </div>
-                  {svc.detail && <p className="svc__detail">{svc.detail}</p>}
-                  {activeSvc === 3 && <LangRules />}
+                  <SvcPanelContent s={svc} isLang={activeSvc === 3} />
                 </div>
               </div>
+            </div>
+
+            {/* mobile: FAQ-style details/summary */}
+            <div className="svc--mobile">
+              {SERVICES.map((s, i) => (
+                <details key={s.tab} className="svc__details">
+                  <summary>
+                    {s.tab}
+                    <span className="ic" />
+                  </summary>
+                  <div className="svc__details__panel svc__panel">
+                    <SvcPanelContent s={s} isLang={i === 3} />
+                  </div>
+                </details>
+              ))}
             </div>
           </div>
         </section>
@@ -687,7 +711,7 @@ export default function ShelteredStrategiesHome() {
                 <b>Free screenings available.</b> A quick, no-cost check to see
                 if a full evaluation is the right next step.
               </p>
-              <a className="btn btn--ghost" href="#contact">
+              <a className="btn btn--light" href="#contact">
                 Request a screening
               </a>
             </div>
@@ -761,7 +785,7 @@ export default function ShelteredStrategiesHome() {
                 <div className="lic">
                   <span className="lic__badge">CO</span>
                   <div>
-                    <b>Colorado Licensed SLP</b>
+                    <b>CO Licensed SLP</b>
                     <small>State of Colorado</small>
                   </div>
                 </div>
@@ -778,13 +802,6 @@ export default function ShelteredStrategiesHome() {
               <p className="eyebrow">About</p>
               <h2>Meet Avery Sheldon, M.S., CCC-SLP</h2>
               <p>
-                A licensed, ASHA-certified Speech-Language Pathologist serving
-                the Durango community with individualized, evidence-based care.
-                Sheltered Strategies was built on a simple belief: every person
-                deserves a structured space to grow their communication —
-                guided by clear goals and a thoughtful plan.
-              </p>
-              <p style={{ marginTop: "1em" }}>
                 Avery holds a Master of Science in Communication Sciences and
                 Disorders from Appalachian State University. She earned her
                 undergraduate degree from Fort Lewis College and her

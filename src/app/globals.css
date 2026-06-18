@@ -1,4 +1,7 @@
+html,body{overflow-x:hidden;max-width:100%;}
+
 .ss{
+  overflow-x:clip;
   /* neutrals — Earthy Boho palette */
   --paper:#f4f1ec;
   --paper-2:#ede7da;
@@ -74,7 +77,7 @@
 .ss .btn:hover{background:var(--green);border-color:var(--green);transform:translateY(-1px);}
 .ss .btn--ghost{background:transparent;color:var(--ink);border-color:var(--line-2);}
 .ss .btn--ghost:hover{background:var(--white);border-color:var(--ink);color:var(--ink);transform:translateY(-1px);}
-.ss .btn--light{background:#f4f3ea;color:var(--green-deep);border-color:#f4f3ea;}
+.ss .btn--light{background:#f4f3ea;color:var(--rose-deep);border-color:#f4f3ea;}
 .ss .btn--light:hover{background:#fff;border-color:#fff;color:var(--green-deep);}
 .ss .btn--taupe{background:var(--taupe);color:var(--white);border-color:var(--taupe);}
 .ss .btn--taupe:hover{background:var(--taupe-deep);border-color:var(--taupe-deep);transform:translateY(-1px);}
@@ -186,8 +189,8 @@
 .ss .menu__foot svg{width:16px;height:16px;flex:none;margin-top:2px;color:var(--green);}
 
 /* free screening callout */
-.ss .screen{max-width:760px;margin:22px auto 0;background:var(--rose-tint);border:1px solid var(--rose);border-radius:14px;padding:20px 26px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:space-between;}
-.ss .screen p{margin:0;color:var(--ink);font-size:15px;}
+.ss .screen{max-width:760px;margin:22px auto 0;background:var(--rose);border:1px solid var(--rose-deep);border-radius:14px;padding:20px 26px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:space-between;}
+.ss .screen p{margin:0;color:#fff;font-size:15px;}
 .ss .screen b{font-family:var(--serif);font-size:18px;font-weight:500;}
 
 /* process */
@@ -251,6 +254,7 @@
 
 /* language rules chart */
 .ss .lang-rules{display:flex;flex-direction:column;gap:6px;margin-top:20px;}
+.ss .lang-rules__intro{font-size:13.5px;color:var(--ink-soft);font-style:italic;margin:0 0 10px;}
 .ss .lang-rule{border:1.5px solid var(--line);border-radius:8px;padding:11px 16px;cursor:pointer;text-align:left;background:var(--white);transition:.15s;width:100%;display:block;}
 .ss .lang-rule:hover{border-color:var(--taupe);background:var(--paper);}
 .ss .lang-rule.open{border-color:var(--mustard);background:var(--mustard-tint);}
@@ -259,6 +263,19 @@
 
 /* svc detail line */
 .ss .svc__detail{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);font-size:14px;color:var(--ink-soft);font-style:italic;margin-bottom:0;}
+
+/* mobile services (FAQ-style details/summary) */
+.ss .svc--mobile{display:none;}
+.ss .svc__details{border-bottom:1px solid var(--line);}
+.ss .svc__details summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px 4px;font-family:var(--serif);font-size:20px;color:var(--ink);}
+.ss .svc__details summary::-webkit-details-marker{display:none;}
+.ss .svc__details summary .ic{position:relative;width:20px;height:20px;flex:none;}
+.ss .svc__details summary .ic::before,.ss .svc__details summary .ic::after{content:"";position:absolute;background:var(--green-deep);transition:.2s;}
+.ss .svc__details summary .ic::before{top:9px;left:0;width:20px;height:2px;}
+.ss .svc__details summary .ic::after{top:0;left:9px;width:2px;height:20px;}
+.ss .svc__details[open] summary .ic::after{transform:rotate(90deg);opacity:0;}
+.ss .svc__details[open] summary{color:var(--green-deep);}
+.ss .svc__details__panel{padding:4px 4px 28px;}
 
 /* credential badge — richer display */
 
@@ -281,10 +298,8 @@
   .ss .hero__media{order:-1;}
   .ss .hero__media .ph{aspect-ratio:16/10;}
   .ss .ways__grid{grid-template-columns:1fr;}
-  .ss .svc{grid-template-columns:1fr;}
-  .ss .svc__list{flex-direction:row;overflow-x:auto;border-left:none;border-bottom:1px solid var(--line);}
-  .ss .svc__tab{border-left:none;border-bottom:2px solid transparent;font-size:18px;white-space:nowrap;}
-  .ss .svc__tab.active{border-left:none;border-bottom-color:var(--green-deep);}
+  .ss .svc--desktop{display:none;}
+  .ss .svc--mobile{display:block;}
   .ss .proc{grid-template-columns:1fr 1fr;}
   .ss .about__grid,.ss .cta .wrap{grid-template-columns:1fr;}
   .ss .about__media{order:-1;}
