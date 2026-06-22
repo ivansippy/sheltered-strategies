@@ -150,7 +150,7 @@ const SERVICES: Service[] = [
     body: "Language is broad, nuanced, and deeply individual. Receptive language is the language you know in your head but don't always share — understanding others and following directions. Expressive language is the language you use to communicate with others. There are three components of language — form, content, and use. Within that framework, therapy may address syntax, morphology, phonology, semantics, and pragmatics.",
     photoLabel: "lake at trail's end",
     variant: "sand",
-    src: "/assets/lake +at+end.jpg",
+    src: "/assets/lake+at+end.jpg",
     pills: [
       "Receptive language",
       "Expressive language",
@@ -786,14 +786,12 @@ export default function ShelteredStrategiesHome() {
                   <span className="lic__badge">CO</span>
                   <div>
                     <b>CO Licensed SLP</b>
-                    <small>State of Colorado</small>
                   </div>
                 </div>
                 <div className="lic">
                   <span className="lic__badge">CA</span>
                   <div>
                     <b>CA Licensed SLP</b>
-                    <small>California Department of Consumer Affairs</small>
                   </div>
                 </div>
               </div>
@@ -902,7 +900,7 @@ export default function ShelteredStrategiesHome() {
             © 2026 Sheltered Strategies · Speech &amp; Language Therapy
           </span>
           <span>
-            Durango, CO · ASHA #{CONTACT.asha} · Serving {CONTACT.region}
+            Durango, CO · Serving {CONTACT.region}
           </span>
         </div>
       </footer>
