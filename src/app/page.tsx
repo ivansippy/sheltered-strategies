@@ -154,7 +154,7 @@ const SERVICES: Service[] = [
     pills: [
       "Receptive language",
       "Expressive language",
-      "Form · content · use",
+      "Form · Content · Use",
     ],
     detail: undefined,
   },
@@ -351,15 +351,15 @@ const LogoMark = () => (
 
 const LANG_RULES: { term: string; def: string }[] = [
   {
-    term: "FORM",
+    term: "Form",
     def: "The rules that govern the structure of language — including syntax (word order and sentence structure), morphology (word-level meaning changes), and phonology (sound patterns and sequencing).",
   },
   {
-    term: "CONTENT",
+    term: "Content",
     def: "The rules that govern meaning in language — primarily semantics, which addresses the meaning and context of words and grammatical units.",
   },
   {
-    term: "USE",
+    term: "Use",
     def: "The rules that govern language use across social communication contexts — including pragmatics, which addresses how language functions in real-world interactions.",
   },
 ];
