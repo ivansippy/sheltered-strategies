@@ -351,15 +351,15 @@ const LogoMark = () => (
 
 const LANG_RULES: { term: string; def: string }[] = [
   {
-    term: "Form",
+    term: "FORM",
     def: "The rules that govern the structure of language — including syntax (word order and sentence structure), morphology (word-level meaning changes), and phonology (sound patterns and sequencing).",
   },
   {
-    term: "Content",
+    term: "CONTENT",
     def: "The rules that govern meaning in language — primarily semantics, which addresses the meaning and context of words and grammatical units.",
   },
   {
-    term: "Use",
+    term: "USE",
     def: "The rules that govern language use across social communication contexts — including pragmatics, which addresses how language functions in real-world interactions.",
   },
 ];
@@ -368,7 +368,7 @@ function LangRules() {
   const [open, setOpen] = useState<number | null>(null);
   return (
     <div className="lang-rules">
-      <p className="lang-rules__intro">The rules that govern language use across social communication context</p>
+      <p></p>
       {LANG_RULES.map((r, i) => (
         <button
           key={r.term}
