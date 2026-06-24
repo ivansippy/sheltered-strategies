@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 /* ---------------- Types ---------------- */
 type PhotoVariant = "" | "green" | "sand";
@@ -15,6 +16,7 @@ interface Service {
   title: string;
   body: string;
   photoLabel: string;
+  photoAlt: string;
   variant: PhotoVariant;
   pills: string[];
   detail?: string;
@@ -110,6 +112,7 @@ const SERVICES: Service[] = [
     title: "Free Screenings",
     body: "Not sure if a full evaluation is warranted? A no-cost screening is a brief, low-pressure opportunity to identify potential areas of concern in speech sound production, language, or fluency. I'll share my clinical impressions and clear recommendations for next steps — whether that's a formal evaluation or reassurance that development is on track.",
     photoLabel: "water bottle · sunscreen · chapstick · trail mix",
+    photoAlt: "Backpack packed for a free speech and language screening visit",
     variant: "green",
     src: "/assets/backpack.png",
     pills: ["No cost", "No referral needed"],
@@ -121,6 +124,7 @@ const SERVICES: Service[] = [
     title: "Speech & Language Evaluations",
     body: "A thorough, individualized evaluation is the foundation of an effective therapy plan. Evaluations may focus on speech sound production, receptive and expressive language, fluency, or a comprehensive assessment covering structure, function, voice, and fluency. Using a combination of standardized testing and informal clinical observation, I build a complete picture of each client's strengths and areas of need. A formal written report — including test results, clinical observations, background history, and individualized recommendations — is provided with every evaluation.",
     photoLabel: "trail map",
+    photoAlt: "Trail map illustrating the speech and language evaluation process",
     variant: "sand",
     src: "/assets/trailmap.png",
     pills: [
@@ -135,6 +139,7 @@ const SERVICES: Service[] = [
     title: "Speech Sound Therapy",
     body: "For those who struggle to produce certain sounds clearly and consistently. Therapy builds from a strong phonetic foundation — targeting sounds in isolation and advancing to words, phrases, sentences, and natural conversation. Evidence-based approaches are selected based on the specific nature of each client's disorder: articulation-based, phonological, or motor-speech (including Childhood Apraxia of Speech). Sessions are engaging, goal-directed, and designed to support real-world communication.",
     photoLabel: "wildflowers along the way",
+    photoAlt: "Wildflowers symbolizing steady progress in speech sound therapy",
     variant: "green",
     src: "/assets/wildflowers.jpg",
     pills: [
@@ -149,6 +154,7 @@ const SERVICES: Service[] = [
     title: "Language Therapy",
     body: "Language is broad, nuanced, and deeply individual. Receptive language is the language you know in your head but don't always share — understanding others and following directions. Expressive language is the language you use to communicate with others. There are three components of language — form, content, and use. Within that framework, therapy may address syntax, morphology, phonology, semantics, and pragmatics.",
     photoLabel: "lake at trail's end",
+    photoAlt: "Calm lake representing clear communication as the goal of language therapy",
     variant: "sand",
     src: "/assets/lake+at+end.jpg",
     pills: [
@@ -386,25 +392,42 @@ function LangRules() {
 /* ---------------- Reusable photo placeholder ---------------- */
 function Photo({
   label,
+  alt,
   variant = "",
   className = "",
   src,
+  priority = false,
 }: {
   label: string;
+  alt?: string;
   variant?: PhotoVariant;
   className?: string;
   src?: string;
+  priority?: boolean;
 }) {
   const cls = ["ph", variant, className].filter(Boolean).join(" ");
   return (
-    <div className={cls}>{src ? <img src={src} alt={label} /> : label}</div>
+    <div className={cls}>
+      {src ? (
+        <Image
+          src={src}
+          alt={alt ?? label}
+          fill
+          sizes="(max-width: 720px) 100vw, 560px"
+          style={{ objectFit: "cover" }}
+          priority={priority}
+        />
+      ) : (
+        label
+      )}
+    </div>
   );
 }
 
 function SvcPanelContent({ s, isLang }: { s: Service; isLang: boolean }) {
   return (
     <>
-      <Photo variant={s.variant} label={s.photoLabel} src={s.src} />
+      <Photo variant={s.variant} label={s.photoLabel} alt={s.photoAlt} src={s.src} />
       <h3>{s.title}</h3>
       <p>{s.body}</p>
       <div className="svc__meta">
@@ -529,7 +552,9 @@ export default function ShelteredStrategiesHome() {
               <Photo
                 variant="green"
                 label="Lions Den"
+                alt="Lions Den trail near Durango, Colorado — the setting for Sheltered Strategies speech-language therapy"
                 src="/assets/Lions Den.jpg"
+                priority
               />
             </div>
           </div>
@@ -541,7 +566,15 @@ export default function ShelteredStrategiesHome() {
             {CREDS.map((c) => (
               <span className="cred" key={c.label}>
                 {c.imgSrc
-                  ? <img src="/assets/ashacert.avif" alt="ASHA CCC-SLP" className="asha-badge" />
+                  ? (
+                    <Image
+                      src="/assets/ashacert.avif"
+                      alt="ASHA Certificate of Clinical Competence (CCC-SLP) seal"
+                      width={38}
+                      height={40}
+                      className="asha-badge"
+                    />
+                  )
                   : <span className="badge">{c.badge}</span>
                 }
                 {c.label}
@@ -568,7 +601,7 @@ export default function ShelteredStrategiesHome() {
                 <span className="way__n">01 — Evaluation</span>
                 <h3>Comprehensive assessment</h3>
                 <p>
-                  An evaluation that pinpoints exactly what's going on —
+                  An evaluation that pinpoints exactly what&apos;s going on —
                   focused on speech sounds, language, fluency, or a complete
                   look at structure, function, and voice.
                 </p>
@@ -771,7 +804,8 @@ export default function ShelteredStrategiesHome() {
             <div className="about__media">
               <Photo
                 variant="green"
-                label="Hero image"
+                label="Avery Sheldon, M.S., CCC-SLP"
+                alt="Avery Sheldon, M.S., CCC-SLP, speech-language pathologist at Sheltered Strategies"
                 src="/assets/ss+photo+2.webp"
               />
               <div className="about__lic">
@@ -818,7 +852,7 @@ export default function ShelteredStrategiesHome() {
                 Sheltered Instruction Strategies are strategies that adapt
                 speech, teach vocabulary through context, and use background
                 knowledge to aid in the understanding of new material. That,
-                infused with her last name Sheldon — or "protected hill" — serves
+                infused with her last name Sheldon — or &ldquo;protected hill&rdquo; — serves
                 as the inspiration to give clients an opportunity to learn
                 communication strategies in a sheltered, protected environment.
               </p>
@@ -860,11 +894,11 @@ export default function ShelteredStrategiesHome() {
         <div className="wrap">
           <div>
             <p className="eyebrow" style={{ color: "#f0c4b0" }}>
-              Let's begin
+              Let&apos;s begin
             </p>
             <h2>Ready to take the first step?</h2>
             <p>
-              Book a consultation. We'll talk through your
+              Book a consultation. We&apos;ll talk through your
               concerns and figure out the best path forward.
             </p>
           </div>
