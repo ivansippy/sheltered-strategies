@@ -686,7 +686,7 @@ export default function ShelteredStrategiesHome() {
             {/* mobile: FAQ-style details/summary */}
             <div className="svc--mobile">
               {SERVICES.map((s, i) => (
-                <details key={s.tab} className="svc__details">
+                <details key={s.tab} name="svc-accordion" className="svc__details">
                   <summary>
                     {s.tab}
                     <span className="ic" />
