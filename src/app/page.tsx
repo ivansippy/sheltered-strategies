@@ -442,6 +442,7 @@ function SvcPanelContent({ s, isLang }: { s: Service; isLang: boolean }) {
 /* ---------------- Page ---------------- */
 export default function ShelteredStrategiesHome() {
   const [activeSvc, setActiveSvc] = useState(0);
+  const [openSvcIdx, setOpenSvcIdx] = useState<number | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const svc = SERVICES[activeSvc];
 
@@ -686,8 +687,13 @@ export default function ShelteredStrategiesHome() {
             {/* mobile: FAQ-style details/summary */}
             <div className="svc--mobile">
               {SERVICES.map((s, i) => (
-                <details key={s.tab} name="svc-accordion" className="svc__details">
-                  <summary>
+                <details key={s.tab} className="svc__details" open={openSvcIdx === i}>
+                  <summary
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setOpenSvcIdx(openSvcIdx === i ? null : i);
+                    }}
+                  >
                     {s.tab}
                     <span className="ic" />
                   </summary>
